@@ -47,6 +47,12 @@ class BasicTest(unittest.TestCase):
         response = requests.put(url)
         self.assertEqual(response.status_code, 404)
 
+    def test_get_query_params(self):
+        url = f"{host}/about"
+        name = "bo"
+        response = requests.get(url, params=[("name", name)])
+        self.assertEqual(response.text, f"[about] hello {name}")
+
 
 if __name__ == "__main__":
     unittest.main()

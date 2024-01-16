@@ -1,6 +1,7 @@
 from webob import Request, Response
 from parse import parse
 import inspect
+import pdb
 
 
 class API:
@@ -37,6 +38,7 @@ class API:
     def handle_request(self, req: Request):
         res = Response()
         handler, kwargs = self.get_handler(req.path)
+        kwargs.update(req.params)
         if not handler:
             return self.default_response(res)
         if inspect.isclass(handler):
@@ -47,3 +49,13 @@ class API:
         else:
             handler(req, res, **kwargs)
         return res
+
+
+# from cgi import parse
+# from html import escape
+
+# d = parse_qs(environ['QUERY_STRING'])
+# age = d.get('age', [''])[0]
+# hobbies = d.get('hobbies', [])
+# age = escape(age)
+# hobbies = [escape(hobby) for hobby in hobbies]
