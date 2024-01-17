@@ -2,7 +2,7 @@ import socket
 import io
 import sys
 import logging
-from datetime import datetime
+from datetime import datetime, UTC
 
 logging.basicConfig(level=logging.INFO)
 if not len(sys.argv) > 2:
@@ -32,8 +32,8 @@ class WSGIServer:
         )
 
     def start_response(self, status, response_headers, exc_info=None):
-        dt = datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT")
-        server_headers = [("Server", "WSGIServer 0.2"), ("Date", str(dt))]
+        dt = datetime.now(UTC).strftime("%a, %d %b %Y %H:%M:%S GMT")
+        server_headers = [("Server", "WSGIServer 0.2"), ("Date", dt)]
         self.headers_set = [status, response_headers + server_headers]
 
     def handle_req(self):
