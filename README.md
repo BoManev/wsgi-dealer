@@ -1,0 +1,1 @@
+benchmark `wrk -c 1000 -d 60 -t 8 http://localhost:8000/hello`
