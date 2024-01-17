@@ -98,3 +98,22 @@ class WSGIServer:
                         env = self.get_environ(data, verb, path, self.host, self.port)
                         result = self.application(env, self.start_response)
                         self.finish_response(result, sock)
+
+
+def parse_http(text):
+    request, *headers, _, body = text.split("\r\n")
+    method, path, proto = request.split(" ")
+    headers = dict(line.split(":", maxsplit=1) for line in headers)
+    return (method, path, proto, headers, body)
+
+
+def default_response(proto, status_code, headers, body):
+    return (
+        f"{proto} {status_code}\r\n",
+        *[f"{k}: {v}" for k, v in headers.items()],
+        f"Content-Length {len(body)}",
+        "Content-Type: text/html; charset=utf-8",
+        "\r\n",
+        body.encode("utf-8"),
+        "\r\n",
+    )

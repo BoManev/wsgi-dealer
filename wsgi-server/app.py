@@ -1,6 +1,6 @@
 import time
-# from server_blocking import WSGIServer
-from server_nonblocking import WSGIServer
+from server_blocking import WSGIServer
+# from server_nonblocking import WSGIServer
 from flask import Flask
 import sys
 
