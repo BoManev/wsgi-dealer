@@ -37,8 +37,12 @@ class API:
 
     def handle_request(self, req: Request):
         res = Response()
+        import pdb
+        pdb.set_trace()
         handler, kwargs = self.get_handler(req.path)
-        kwargs.update(req.params)
+
+        if req.params:
+            kwargs.update(req.params)
         if not handler:
             return self.default_response(res)
         if inspect.isclass(handler):
