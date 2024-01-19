@@ -1,9 +1,14 @@
 from api import API
-from webob import Request
+from webob import Request, Response
 
 
 app = API()
 
+@app.route("/test")
+def test():
+    print("HERE")
+    
+print(test())
 
 @app.route("/home")
 def home(request: Request, response):
@@ -28,3 +33,4 @@ class BooksResource:
 
     def post(self, req, response):
         response.text = "[book] POST"
+

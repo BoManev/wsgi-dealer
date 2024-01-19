@@ -14,6 +14,7 @@ class API:
         return res(environ, start_response)
 
     def route(self, path):
+        import pdb; pdb.set_trace()
         if path in self._routes:
             raise AssertionError("{path} already exists!")
 
@@ -37,8 +38,6 @@ class API:
 
     def handle_request(self, req: Request):
         res = Response()
-        import pdb
-        pdb.set_trace()
         handler, kwargs = self.get_handler(req.path)
 
         if req.params:
